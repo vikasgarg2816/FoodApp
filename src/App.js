@@ -1,25 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{lazy, Suspense} from 'react';
+import Header from "./components/Header";
+import Body from './components/Body';
+import About from './components/About';
+import { createBrowserRouter, Outlet} from 'react-router-dom';
+import Error from './components/Error';
+import Contact from './components/Contact';
+import RestaurantMenu from './components/RestaurantMenu';
 
-function App() {
+const Grocery = lazy(()=>import('./components/Grocery'));
+
+const AppLayout = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header/>
+      <Outlet/>
     </div>
-  );
+  )
 }
 
-export default App;
+// Step 1: Route Configuration
+const AppRouter = createBrowserRouter([
+  {
+    path: '/',
+    element: <AppLayout/>,
+    children:[
+      {
+        path:'/about',
+        element: <About/>,
+      },
+      {
+        path:'/contact',
+        element: <Contact/>
+      },
+      {
+        path:"/",
+        element: <Body/>
+      },
+      {
+        path:"/restaurant/:resid",
+        element:<RestaurantMenu/>
+      },
+      {
+        path:'/grocery',
+        element:<Suspense fallback={<h1>Loading</h1>}><Grocery/></Suspense>
+      }
+    ],
+    errorElement: <Error/>,
+  },
+]);
+
+// Step 2: Provide configuration to render
+
+export default AppRouter;
