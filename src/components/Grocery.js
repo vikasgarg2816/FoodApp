@@ -1,5 +1,5 @@
 // Import Remarkable class from 'remarkable' module
-import { Remarkable } from 'remarkable';
+import { Remarkable } from "remarkable";
 
 // Create a new instance of Remarkable
 const md = new Remarkable();
@@ -31,13 +31,13 @@ const html = md.render(markdownText);
 console.log(html);
 
 const Grocery = () => {
-    return(
-        <div>
-            <h1>
-                Welcome to our Grocery Store with great deals and exiciting offers !!!!
-            </h1>
-        </div>
-    )
-}
+  return (
+    <div>
+      <h1>
+        Welcome to our Grocery Store with great deals and exiciting offers !!!!
+      </h1>
+    </div>
+  );
+};
 
 export default Grocery;

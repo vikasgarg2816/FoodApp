@@ -1,51 +1,55 @@
-import React,{lazy, Suspense} from 'react';
+import React, { lazy, Suspense } from "react";
 import Header from "./components/Header";
-import Body from './components/Body';
-import About from './components/About';
-import { createBrowserRouter, Outlet} from 'react-router-dom';
-import Error from './components/Error';
-import Contact from './components/Contact';
-import RestaurantMenu from './components/RestaurantMenu';
+import Body from "./components/Body";
+import About from "./components/About";
+import { createBrowserRouter, Outlet } from "react-router-dom";
+import Error from "./components/Error";
+import Contact from "./components/Contact";
+import RestaurantMenu from "./components/RestaurantMenu";
 
-const Grocery = lazy(()=>import('./components/Grocery'));
+const Grocery = lazy(() => import("./components/Grocery"));
 
 const AppLayout = () => {
   return (
     <div>
-      <Header/>
-      <Outlet/>
+      <Header />
+      <Outlet />
     </div>
-  )
-}
+  );
+};
 
 // Step 1: Route Configuration
 const AppRouter = createBrowserRouter([
   {
-    path: '/',
-    element: <AppLayout/>,
-    children:[
+    path: "/",
+    element: <AppLayout />,
+    children: [
       {
-        path:'/about',
-        element: <About/>,
+        path: "/about",
+        element: <About />,
       },
       {
-        path:'/contact',
-        element: <Contact/>
+        path: "/contact",
+        element: <Contact />,
       },
       {
-        path:"/",
-        element: <Body/>
+        path: "/",
+        element: <Body />,
       },
       {
-        path:"/restaurant/:resid",
-        element:<RestaurantMenu/>
+        path: "/restaurant/:resid",
+        element: <RestaurantMenu />,
       },
       {
-        path:'/grocery',
-        element:<Suspense fallback={<h1>Loading</h1>}><Grocery/></Suspense>
-      }
+        path: "/grocery",
+        element: (
+          <Suspense fallback={<h1>Loading</h1>}>
+            <Grocery />
+          </Suspense>
+        ),
+      },
     ],
-    errorElement: <Error/>,
+    errorElement: <Error />,
   },
 ]);
 
